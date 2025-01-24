@@ -121,7 +121,7 @@ int main() {
 
         text = "COM CUIDADO";
         mostrar_texto(5, 40, 1, text, false);
-        sleep_ms(5000);
+        sleep_ms(8000);
 
         }
     } 
