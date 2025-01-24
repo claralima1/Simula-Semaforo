@@ -25,7 +25,7 @@ void inicializa(){
     gpio_set_function(PINO_SDA, GPIO_FUNC_I2C); //Configura o pino (SDA) para o modo I2C
     gpio_pull_up(PINO_SCL); //para manter os pinos em nível lógico alto
     gpio_pull_up(PINO_SDA); //para manter os pinos em nível lógico alto
-    disp.external_vcc=false;
+    //disp.external_vcc=false;
     ssd1306_init(&disp, 128, 64, 0x3C, I2C_PORT); // Inicializa o display OLED SSD1306 com a resolução de 128x64 pixels e o endereço I2C 0x3C (endereço padrão do display)
     // INICIANDO LEDS
     gpio_init(LED_R_PIN);
@@ -42,13 +42,13 @@ void inicializa(){
 
 }
 
-void print_texto(char *msg, int linha, bool q){
+void mostrar_texto(int col, int lin, int tam, char *msg,  bool q){
     if(q){
     ssd1306_clear(&disp);//Limpa a tela  do display   
-    } else {
-    ssd1306_draw_string(&disp, 8, linha, 1, msg);//desenha o texto
+    } 
+    ssd1306_draw_string(&disp, col, lin,tam, msg);//desenha o texto
     ssd1306_show(&disp);//Atualiza a tela para mostrar o texto
-    }
+    
     
 }
 
@@ -88,29 +88,42 @@ int main() {
     inicializa(); // Inicializa os dispositivos
     char *text = "";
     while(true) {
-       SinalFechado(); // Inicia o semáforo fechado (vermelho aceso)
-       text = "SINAL FECHADO";
-       print_texto(text,20, true);
-       text = "- AGUARDE";
-       print_texto(text,40, false);
+        SinalFechado(); // Inicia o semáforo fechado (vermelho aceso)
+        text = "SINAL FECHADO";
+        mostrar_texto(5, 20, 1, text, true);
+        
+
+        text = "AGUARDE";
+        mostrar_texto(5, 40, 1, text, false);
+        sleep_ms(1000);
+        
+
+
        A_state = WaitWithRead(8000);   //espera com leitura do botäo
-       //sleep_ms(8000);
-       if(A_state) { //ALGUEM APERTOU O BOTAO - SAI DO SEMAFORO NORMAL
+     
+       if(A_state) { //Se apertar no botão
         SinalAtencao();
-        text = "SINAL DE ATENÇÃO";
-        print_texto(text, 20, true);
-        sleep_ms(5000);
-        text = "- PREPARE-SE";
-        print_texto(text, 40, true);
+        text = "SINAL DE ATENCAO";
+        mostrar_texto(5, 20, 1, text, true);
+      
+
+        text = "PREPARE-SE";
+        mostrar_texto(5, 40, 1, text, false);
         sleep_ms(5000);
 
         SinalAberto();
-        text = "SINAL ABERTO - ATRAVESSAR COM CUIDADO";
-        print_texto(text, 20, true);
-        text = " - ATRAVESSAR COM CUIDADO";
-        print_texto(text, 40, true);
-        sleep_ms(10000); 
+        text = "SINAL ABERTO";
+        mostrar_texto(5, 10, 1, text, true);
+
+        text = "ATRAVESSAR";
+        mostrar_texto(5, 30, 1, text, false);
+        
+
+        text = "COM CUIDADO";
+        mostrar_texto(5, 40, 1, text, false);
+        sleep_ms(5000);
+
         }
-    }
+    } 
     return 0;
 }
