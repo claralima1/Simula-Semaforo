@@ -1,52 +1,76 @@
-# Semáforo com Display OLED e LEDs RGB
+# 🚦 Semáforo com Display OLED e LEDs RGB  
 
-Este é um projeto de um semáforo com controle via botão, display OLED SSD1306 e LEDs RGB, utilizando o microcontrolador Raspberry Pi Pico. O semáforo exibe as fases de "Sinal Fechado", "Sinal de Atenção" e "Sinal Aberto" no display, e altera as cores dos LEDs RGB de acordo com a fase do semáforo.
+Projeto de um **semáforo interativo** com controle via botão, **display OLED SSD1306** e **LEDs RGB**, utilizando o microcontrolador **Raspberry Pi Pico**.  
+O sistema exibe as fases de **Sinal Fechado**, **Sinal de Atenção** e **Sinal Aberto** no display, alterando as cores dos LEDs de acordo com cada estado.
 
-## Componentes Utilizados
+---
 
-- Raspberry Pi Pico
-- Display OLED SSD1306 (128x64 pixels)
-- LEDs RGB (vermelho, verde e azul)
-- Botão
+## 🧩 Componentes Utilizados  
 
-## Funcionalidade
+- 🥧 **Raspberry Pi Pico**  
+- 🖥️ **Display OLED SSD1306** (128x64 pixels)  
+- 🌈 **LEDs RGB** (vermelho, verde e azul)  
+- 🔘 **Botão de acionamento**
 
-O semáforo possui três estados principais:
+---
 
-1. **Sinal Fechado** (vermelho): Indicando que o tráfego está parado.
-2. **Sinal de Atenção** (vermelho e amarelo): Preparação para o semáforo abrir.
-3. **Sinal Aberto** (verde): O tráfego pode passar.
+## ⚙️ Funcionalidade  
 
-A troca entre os estados ocorre após o pressionamento de um botão, e cada estado é visualizado tanto no display OLED quanto nos LEDs RGB.
+O semáforo possui **três estados principais**:
 
-## Pinagem
+1. 🔴 **Sinal Fechado**: Tráfego parado.  
+2. 🟡 **Sinal de Atenção**: Preparação para abrir.  
+3. 🟢 **Sinal Aberto**: Tráfego liberado.
 
-- **Pino SCL** (Clock I2C): GPIO 14
-- **Pino SDA** (Data I2C): GPIO 15
-- **LED Vermelho**: GPIO 13
-- **LED Verde**: GPIO 11
-- **LED Azul**: GPIO 12
-- **Botão A**: GPIO 5
+➡️ A troca de estados ocorre após o **pressionamento do botão**, sendo exibida tanto no **display OLED** quanto nos **LEDs RGB**.
 
-## Como Funciona
+---
 
-1. O semáforo inicia com o estado **"Sinal Fechado"**, com o LED vermelho aceso e a mensagem correspondente no display.
-2. Após o pressionamento do botão por 8 segundos, o semáforo muda para o estado **"Sinal de Atenção"**, com os LEDs vermelho e verde acesos, e a mensagem "Sinal de Atenção" no display.
-3. Após 5 segundos, o semáforo muda para o estado **"Sinal Aberto"**, com o LED verde aceso e as mensagens "Atravessar com Cuidado" sendo exibidas no display.
-4. O ciclo se repete enquanto o sistema estiver ligado.
+## 🗂️ Pinagem  
 
-## Instalação
+| Componente          | Função          | GPIO |
+|---------------------|-----------------|------|
+| 🕒 **SCL (Clock I2C)** | Comunicação    | 14   |
+| 📝 **SDA (Data I2C)**  | Comunicação    | 15   |
+| 🔴 **LED Vermelho**    | Sinal fechado  | 13   |
+| 🟢 **LED Verde**       | Sinal aberto   | 11   |
+| 🔵 **LED Azul**        | Extra/atenção  | 12   |
+| 🔘 **Botão A**         | Acionamento    | 5    |
 
-1. **Configuração do ambiente de desenvolvimento**: Instale o compilador C para o Raspberry Pi Pico e as bibliotecas necessárias.
-2. **Conexões**: Conecte os pinos do Raspberry Pi Pico aos respectivos componentes (display OLED, LEDs RGB e botão).
-3. **Compilação e Upload**: Compile o código e faça o upload para o Raspberry Pi Pico.
+---
 
-## Código
+## ▶️ Como Funciona  
 
-O código principal está implementado no arquivo `teste.c`. Ele utiliza a biblioteca `ssd1306` para controlar o display OLED e a biblioteca `pico/stdlib` para as funções de I/O e controle de GPIO.
+1. **Início**: Estado **🔴 Sinal Fechado** com LED vermelho aceso e mensagem no display.  
+2. **Após 8s**: Botão pressionado → Estado **🟡 Sinal de Atenção** com LEDs vermelho + verde acesos.  
+3. **Após 5s**: Transição para **🟢 Sinal Aberto**, exibindo “Atravessar com Cuidado”.  
+4. 🔁 O ciclo se repete enquanto o sistema estiver ligado.
 
-## Dependências
+---
 
-- Biblioteca `ssd1306` para o controle do display OLED.
-- Biblioteca `pico/stdlib` para funções de entrada/saída e controle de GPIO.
+## 🛠️ Instalação  
 
+1. **Configuração do ambiente**  
+   - Instale o compilador C para o Raspberry Pi Pico.  
+   - Adicione as bibliotecas necessárias.
+
+2. **Conexões**  
+   - Conecte o Raspberry Pi Pico ao **display OLED**, **LEDs RGB** e **botão**, conforme a pinagem.
+
+3. **Compilação e Upload**  
+   - Compile o código e faça o upload para o Raspberry Pi Pico.
+
+---
+
+## 💻 Código  
+
+O código principal está no arquivo **`teste.c`**, utilizando:  
+- 📚 Biblioteca **`ssd1306`** para controle do display.  
+- 🔧 Biblioteca **`pico/stdlib`** para GPIO e funções de I/O.
+
+---
+
+## 📦 Dependências  
+
+- `ssd1306` – Controle do display OLED.  
+- `pico/stdlib` – Entrada/saída e GPIO.
